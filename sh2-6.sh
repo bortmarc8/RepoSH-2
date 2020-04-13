@@ -1,10 +1,16 @@
 #!/bin/bash
-arch=$1;
-acum=0;
-count=0;
-while read linea; do
-	acum=$((acum + linea));
-	count=$((count + 1));
-done < $arch
+ruta_anterior=`pwd`
+ruta_buena=$ruta_anterior/$1
+cd $1
+ruta_actual=`pwd`
 
-echo "La media es: $((acum/count))";
+contador=0
+if [[ $ruta_buena = $ruta_actual ]]; then
+	for i in `ls -1 | grep .txt`; do
+		rm $i
+		contador=`expr $contador + 1`
+	done
+	echo"Se han borrado $contador ficheros"
+else
+	echo "El directorio no existe"
+fi
